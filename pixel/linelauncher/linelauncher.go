@@ -27,6 +27,15 @@ type Movable struct {
 	dx, dy float64
 }
 
+// Pointer needed here for updates to work
+func (m *Movable) move(){
+    m.x1 += m.dx
+    m.y1 += m.dy
+    m.x2 += m.dx
+    m.y2 += m.dy
+}
+
+
 func run() {
 	// Create pixelgl Window
 	cfg := pixelgl.WindowConfig{
@@ -62,11 +71,7 @@ func run() {
 			imd.Push(pixel.V(thing.x1, thing.y1))
 			imd.Push(pixel.V(thing.x2, thing.y2))
 			imd.Line(1)
-
-			things[ti].x1 += thing.dx
-			things[ti].y1 += thing.dy
-			things[ti].x2 += thing.dx
-			things[ti].y2 += thing.dy
+            things[ti].move()
 		}
 
 		imd.Draw(win)
